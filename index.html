@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURA & NOIR · Asistente tributario y financiero</title>
+<meta name="description" content="Calcula impuestos y retenciones, genera asientos contables e informes para AURA & NOIR S.A.S.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Saltar al contenido</a>
+<header class="nav">
+  <button class="logo" data-go="inicio" aria-label="Ir al inicio"><span class="mark">A&amp;N</span><span>Asistente AURA &amp; NOIR</span></button>
+  <nav id="tabs" role="tablist" aria-label="Secciones">
+    <button class="tab on" data-t="inicio" role="tab">Inicio</button>
+    <button class="tab" data-t="calc" role="tab">Transacción</button>
+    <button class="tab" data-t="rep" role="tab">Informe</button>
+    <button class="tab" data-t="chat" role="tab">Consulta IA</button>
+    <button class="tab" data-t="par" role="tab">Parámetros</button>
+    <button class="tab" data-t="ref" role="tab">Referencias</button>
+  </nav>
+  <button id="theme" class="theme" aria-label="Cambiar entre tema claro y oscuro" title="Tema claro / oscuro"></button>
+</header>
+
+<main id="main">
+<section id="inicio" class="panel on">
+  <div class="hero">
+    <div class="hero-t">
+      <p class="eyebrow">Apoyo tributario y financiero · Colombia 2026</p>
+      <h1>Cada transacción, calculada y <em>bien explicada</em></h1>
+      <p class="lead">Ingresa una compra, un servicio o una venta. El asistente calcula IVA y retenciones con las tarifas de AURA &amp; NOIR, arma el asiento contable y te dice qué documento resuelve cada duda.</p>
+      <div class="row">
+        <button class="btn" data-go="calc">Calcular una transacción →</button>
+        <button class="btn ghost" data-go="ref">Ver referencias</button>
+      </div>
+    </div>
+    <div class="orbit" aria-hidden="true">
+      <div class="badge"><span>A&amp;N</span></div>
+      <i class="chip c1">IVA 19%</i><i class="chip c2">Retefuente</i><i class="chip c3">ReteICA</i>
+      <i class="chip c4">GMF 4‰</i><i class="chip c5">INC 8%</i><i class="chip c6">UVT $52.374</i>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li><b>1</b><h3>Elige la operación</h3><p>Compra, servicio, honorarios, arriendo, restaurante, venta o rendimientos.</p><button class="link" data-go="calc">Ir a Transacción</button></li>
+    <li><b>2</b><h3>Revisa el cálculo</h3><p>Base, tarifa, base mínima, fórmula, asiento con cuentas del PUC y neto.</p><button class="link" data-go="par">Ver parámetros</button></li>
+    <li><b>3</b><h3>Guarda y reporta</h3><p>Acumula las operaciones del mes y genera el informe con IVA y retenciones.</p><button class="link" data-go="rep">Ir al Informe</button></li>
+  </ol>
+
+  <div class="card ficha">
+    <h2>Ficha de la empresa</h2>
+    <dl>
+      <div><dt>Razón social</dt><dd>AURA &amp; NOIR S.A.S.</dd></div>
+      <div><dt>NIT</dt><dd>901.845.312-5</dd></div>
+      <div><dt>Actividad</dt><dd>CIIU 4773 · cosméticos</dd></div>
+      <div><dt>Domicilio</dt><dd>Bogotá D.C.</dd></div>
+      <div><dt>Régimen</dt><dd>Responsable de IVA · renta ordinario</dd></div>
+      <div><dt>Caja menor</dt><dd>Fondo $2.000.000 · tope mensual $1.400.000</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section id="calc" class="panel">
+  <header class="ph"><h2>Explicar una transacción</h2><p>Completa los datos y pulsa Calcular. El resultado sigue siempre el mismo orden.</p></header>
+  <div class="grid">
+    <form id="f" class="card" autocomplete="off">
+      <h4>Operación</h4>
+      <label>Tipo de operación
+        <select id="tipo">
+          <option value="compra">Compra de bienes (mercancía)</option>
+          <option value="servicio">Servicio general</option>
+          <option value="limpieza">Servicio de limpieza (CIIU 8121)</option>
+          <option value="honorarios">Honorarios</option>
+          <option value="arriendo">Arrendamiento de inmueble</option>
+          <option value="restaurante">Restaurante (impuesto al consumo 8%)</option>
+          <option value="venta">Venta de cosméticos</option>
+          <option value="rendimientos">Rendimientos financieros</option>
+        </select>
+      </label>
+      <label>Descripción o tercero
+        <input id="desc" type="text" placeholder="Ej.: Proveedor Cosméticos Ltda.">
+      </label>
+      <label>Subtotal sin IVA (COP)
+        <input id="monto" type="text" inputmode="numeric" placeholder="2.000.000" required>
+      </label>
+      <label>Fecha
+        <input id="fecha" type="date">
+      </label>
+      <h4>Tercero y pago</h4>
+      <label id="lDecl">El tercero es
+        <select id="decl"><option value="si">Declarante de renta</option><option value="no">No declarante</option></select>
+      </label>
+      <label id="lPj">Tipo de tercero
+        <select id="pj"><option value="pj">Persona jurídica</option><option value="pn">Persona natural</option></select>
+      </label>
+      <label class="chk" id="lIva"><input id="iva" type="checkbox" checked> La operación causa IVA 19%</label>
+      <label class="chk" id="lRet"><input id="cliRet" type="checkbox"> El cliente es agente retenedor y nos practica retención</label>
+      <label id="lPago">Forma de pago
+        <select id="pago"></select>
+      </label>
+      <div class="row">
+        <button type="submit" class="btn">Calcular</button>
+        <button type="button" id="guardar" class="btn ghost" disabled>Guardar en el informe</button>
+      </div>
+    </form>
+    <div id="out" class="card out"><div class="empty"><b>Aún no hay cálculo</b><p>Verás: soporte requerido, base gravable, tarifa y base mínima, fórmula, asiento contable y valor neto.</p></div></div>
+  </div>
+</section>
+
+<section id="rep" class="panel">
+  <header class="ph"><h2>Informe del periodo</h2><p>Se arma con las transacciones que guardaste desde la pestaña Transacción.</p></header>
+  <div class="card bar">
+    <label class="inl">Periodo <input id="mes" type="month"></label>
+    <button id="gen" class="btn">Generar informe</button>
+    <button id="imp" class="btn ghost">Imprimir o guardar PDF</button>
+    <button id="borrar" class="btn ghost danger">Vaciar transacciones</button>
+  </div>
+  <div id="repOut" class="card out"><div class="empty"><b>Elige un periodo y genera el informe</b><p>Incluye resumen, IVA, retenciones, obligaciones y observaciones.</p></div></div>
+</section>
+
+<section id="chat" class="panel">
+  <header class="ph"><h2>Consulta con IA</h2><p>Pregunta en lenguaje natural. Sin conexión a una IA, responde con el motor de reglas de la empresa (gratis). Con una clave gratuita de Gemini en Netlify, responde preguntas libres.</p></header>
+  <div id="log" class="card log" aria-live="polite"><div class="msg a">Hola, soy el asistente tributario de AURA &amp; NOIR. Pregúntame por impuestos, retenciones o asientos contables.</div></div>
+  <div class="sugs">
+    <button class="sug">¿Qué retención aplica a una compra de $3.000.000 a un no declarante?</button>
+    <button class="sug">¿Cuándo aplica ReteICA en servicios de limpieza?</button>
+    <button class="sug">¿Cómo contabilizo un gasto de caja menor?</button>
+  </div>
+  <form id="cf" class="send"><input id="q" type="text" placeholder="Escribe tu pregunta…" required aria-label="Tu pregunta"><button class="btn">Enviar</button></form>
+</section>
+
+<section id="par" class="panel">
+  <header class="ph"><h2>Parámetros 2026</h2><p>Valores que usa la calculadora. UVT 2026 = $52.374.</p></header>
+  <div id="parOut" class="card out"></div>
+</section>
+
+<section id="ref" class="panel">
+  <header class="ph"><h2>Referencias y glosario</h2><p>Fuentes para verificar cada tarifa. Confirma siempre la vigencia en el sitio oficial.</p></header>
+  <div class="card out">
+    <h3>Normas de referencia</h3>
+    <table>
+      <tr><th>Tema</th><th>Referencia</th></tr>
+      <tr><td>Renta personas jurídicas 35%</td><td>Estatuto Tributario, art. 240</td></tr>
+      <tr><td>IVA 19%</td><td>Estatuto Tributario, art. 468</td></tr>
+      <tr><td>Impuesto al consumo (restaurantes 8%)</td><td>Estatuto Tributario, arts. 512-1 y 512-8</td></tr>
+      <tr><td>GMF 4 por mil</td><td>Estatuto Tributario, art. 871</td></tr>
+      <tr><td>Retención en la fuente</td><td>Estatuto Tributario, arts. 365 y ss.; Decreto 1625 de 2016 (DUR tributario)</td></tr>
+      <tr><td>ReteIVA y agentes designados</td><td>Estatuto Tributario, art. 437-2</td></tr>
+      <tr><td>UVT del año</td><td>Resolución anual de la DIAN que la fija</td></tr>
+      <tr><td>ICA, avisos y tableros, ReteICA (Bogotá)</td><td>Secretaría Distrital de Hacienda; Acuerdo 65 de 2002 y normas que lo desarrollan</td></tr>
+      <tr><td>Facturación electrónica</td><td>Resoluciones DIAN vigentes sobre factura electrónica y documento soporte</td></tr>
+    </table>
+    <p class="links"><a href="https://www.dian.gov.co" target="_blank" rel="noopener">DIAN</a> <a href="https://www.haciendabogota.gov.co" target="_blank" rel="noopener">Hacienda Bogotá</a> <a href="https://www.secretariasenado.gov.co" target="_blank" rel="noopener">Estatuto Tributario (Senado)</a></p>
+    <h3>Glosario</h3>
+    <details><summary>UVT</summary><p>Unidad de Valor Tributario: medida en pesos que la DIAN fija cada año para bases y topes. En 2026: $52.374.</p></details>
+    <details><summary>Declarante / no declarante</summary><p>Si el tercero presenta declaración de renta. Cambia la tarifa de retención en compras y servicios. Se confirma con su RUT.</p></details>
+    <details><summary>Retefuente</summary><p>Anticipo del impuesto de renta que se descuenta al pagar. Se calcula sobre el subtotal sin IVA y solo si el pago alcanza la base mínima.</p></details>
+    <details><summary>ReteIVA</summary><p>Retención del 15% del IVA que practican solo los agentes designados.</p></details>
+    <details><summary>ICA, ReteICA y Avisos y Tableros</summary><p>Impuestos de Bogotá. El ICA grava los ingresos por actividad; ReteICA es su retención; avisos y tableros es el 15% del ICA.</p></details>
+    <details><summary>INC</summary><p>Impuesto nacional al consumo. En restaurantes es 8% y no genera IVA descontable.</p></details>
+    <details><summary>GMF</summary><p>Gravamen a los movimientos financieros: 4 por mil sobre retiros y transferencias.</p></details>
+    <details><summary>PUC y anticipos</summary><p>Plan Único de Cuentas. Los anticipos son retenciones que nos practican y se registran como activo.</p></details>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>Herramienta de apoyo formativo. No reemplaza a un contador público. Las cuentas marcadas como supuesto no están en el PUC del proyecto.</p>
+</footer>
+<script src="app.js"></script>
+<script src="ui.js"></script>
+</body>
+</html>
