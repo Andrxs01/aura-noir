@@ -1,0 +1,32 @@
+AURA & NOIR · Asistente tributario y financiero
+================================================
+
+CONTENIDO
+  index.html, styles.css, app.js, ui.js -> la aplicación (no necesita servidor)
+  netlify/functions/chat.js           -> función opcional para la pestaña "Consulta libre" (IA)
+  netlify.toml                        -> configuración de Netlify
+
+PROBAR EN TU COMPUTADOR
+  1. Descomprime el ZIP.
+  2. Haz doble clic en index.html (se abre en el navegador).
+  3. Pestaña "Transacción": calcula, revisa el asiento y pulsa "Guardar en el informe".
+  4. Pestaña "Informe del periodo": genera el informe del mes.
+  (La pestaña "Consulta libre" solo funciona ya desplegada en Netlify.)
+
+SUBIR A NETLIFY
+  Opción A (rápida, sin IA): entra a app.netlify.com/drop y arrastra la carpeta descomprimida.
+    Calculadora, informe y parámetros funcionan.
+  Opción B (con IA): sube la carpeta a GitHub y en Netlify elige "Import from Git"
+    (o usa Netlify CLI: npm i -g netlify-cli && netlify deploy --prod).
+    Luego en Site configuration > Environment variables crea ANTHROPIC_API_KEY con tu clave.
+    Nunca pongas la clave dentro de index.html ni app.js.
+
+NOTAS
+  - Las transacciones se guardan solo en el navegador de quien las calcula (localStorage).
+  - Las cuentas marcadas "supuesto" (gastos, ingresos, inventario, clientes) no están en el PUC del proyecto.
+  - Herramienta de apoyo formativo; no reemplaza a un contador público.
+
+IA GRATIS (sin pagar a Anthropic)
+  1. Modo sin IA: ya viene incluido. Si no hay clave, la pestaña "Consulta IA" responde con las reglas de la empresa.
+  2. IA gratuita con Gemini: crea una clave en aistudio.google.com (Get API key) y en Netlify agrega la variable
+     GEMINI_API_KEY. Opcional: GEMINI_MODEL si el modelo por defecto cambia. Luego redespliega.
